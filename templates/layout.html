@@ -3,8 +3,57 @@
         <meta charset="utf-8">
         <title>Lunch Manager</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+        <script>
+            function getCurDate() {
+                var today = new Date();
+                var y = today.getFullYear();
+                var m = today.getMonth();
+                var d = today.getDate();
+                d = checkTime(d);
+                m = checkMonth(m);
+                document.getElementById("curDate").innerHTML = d + ". " + m + " " + y;
+            }
+
+            function startTime() {
+                var today = new Date();
+                var h = today.getHours();
+                var m = today.getMinutes();
+                var s = today.getSeconds();
+                m = checkTime(m);
+                s = checkTime(s);
+                document.getElementById("curTime").innerHTML = h + ":" + m + ":" + s;
+                var t = setTimeout(startTime, 500);
+            }
+
+            function checkTime(i) {
+                if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+                return i;
+            }
+
+            function checkMonth(m) {
+                var month = new Array();
+                month[0] = "January";
+                month[1] = "February";
+                month[2] = "March";
+                month[3] = "April";
+                month[4] = "May";
+                month[5] = "June";
+                month[6] = "July";
+                month[7] = "August";
+                month[8] = "September";
+                month[9] = "October";
+                month[10] = "November";
+                month[11] = "December";
+                return month[m];
+            }
+
+            function start() {
+                getCurDate()
+                startTime()
+            }
+        </script>
     </head>
-    <body>
+    <body onload="start()">
         <div class="container">
             {% block body %}{% endblock %}
         </div>

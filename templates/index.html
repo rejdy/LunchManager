@@ -6,41 +6,41 @@
         <h1 class="display-4">Lunch Manager</h1>
         <hr class="my-4">
         <font size="5"><p> <b>Read</b> - <b>Think</b> - <b>Vote</b> </p></font>
+        <span style="font-weight:bold; float:left;" id="curDate"></span>​
+        <span style="font-weight:bold; float:right;" id="curTime"></span>
+
     </div>
 
-    <h1>Restaurants</h1>
-
-    <table cellpadding = "5" cellspacing = "5" border="0" width="100%">
-      <tr>
-        <td>
-        <ul class="list-group">
-            {% for i in Iter %}
-                <li class="list-group-item list-group-item-primary">{{Restaurants[i]}}</li>
-                {% for m in Menus[i] %}
-                    <li class="list-group-item" style="height: 30px; padding: 3px 30px;"><font size="2">{{m}}</font></li>
-                {% endfor %}
-           {% endfor %}
-        </ul>
-        </td>
-
-        <td valign="top">
-        <form method="post" action="https://poll.pollcode.com/98697858">
+    <table align="center" cellpadding = "5" cellspacing = "5" border="0" width="75%">
+        <th ><font size="6">Restaurants</font></th>
+        <tr>
+            <td width="100%">
             <ul class="list-group">
-                <li class="list-group-item list-group-item-primary">Poll of a day</li>
-                    {% for r in Restaurants %}
-                    <li class="list-group-item" style="height: 30px; padding: 5px 15px;">
-                        <font size="2">
-                            <input type="checkbox" name="answer" value="{{r}}" id="{{r}}"/>
-                            <label for="{{r}}">{{r}}</label>
-                        </font>
-                    </li>
+                {% for i in Iter %}
+                <li class="list-group-item list-group-item-primary"><b>{{Restaurants[i]}}</b></li>
+                    {% for m in Menus[i] %}
+                        <li class="list-group-item" style="padding: 5px 40px;"><font size="2">{{m}}</font></li>
                     {% endfor %}
-                    <div style="clear:both;height:2px;"></div>
-
+               {% endfor %}
             </ul>
+            </td>
 
-        </form>
-          </td>
-      </tr>
+            <!--<td valign="top">-->
+            <!--<form method="post" action="https://poll.pollcode.com/98697858">-->
+                <!--<ul class="list-group">-->
+                    <!--<li class="list-group-item list-group-item-primary">Poll of a day</li>-->
+                        <!--{% for r in Restaurants %}-->
+                        <!--<li class="list-group-item" style="height: 30px; padding: 5px 15px;">-->
+                            <!--<font size="2" align="left">-->
+                                <!--<input type="checkbox" name="answer" value="{{r}}" id="{{r}}"/>-->
+                                <!--<label for="{{r}}">{{r}}</label>-->
+                            <!--</font>-->
+                        <!--</li>-->
+                        <!--{% endfor %}-->
+                        <!--<div style="clear:both;height:2px;"></div>-->
+                <!--</ul>-->
+            <!--</form>-->
+              <!--</td>-->
+        </tr>
     </table>
 {% endblock %}

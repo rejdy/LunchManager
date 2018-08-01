@@ -1,7 +1,10 @@
 from flask import Flask, render_template
 from bs4 import BeautifulSoup
 import requests
+import datetime
 import googlemaps
+
+todayDate = datetime.datetime.now()
 
 gmaps = googlemaps.Client(key='AIzaSyDWGoMIsK1Q3c2BWX9ULMvMCMG8aK4mNwI')
 
@@ -18,6 +21,7 @@ iteration = []
 def get_distance(name, distance):
 
     return False
+
 
 def get_lunch_menu_sme(WebSite, iter):
     soup = BeautifulSoup(WebSite, 'lxml')
@@ -44,6 +48,17 @@ def get_lunch_menu_sme(WebSite, iter):
         print('No Menu')
         menus[iter].append(' ')
 
+def get_lunch_menu_pp(WebSite, iter):
+    soup = BeautifulSoup(WebSite, 'lxml')
+    print(str(todayDate.day))
+    tag = soup.find_all('h2', string=str(todayDate.day))
+
+    for tag_item in tag:
+        print('Hello 2')
+        print(tag_item.text)
+        if str(todayDate.day) in tag_item:
+            print('Hello plaza')
+
 
 if __name__ == "__main__":
     with open("data.txt", "r") as ins:
@@ -57,10 +72,12 @@ if __name__ == "__main__":
         source = requests.get(item).text
         if 'restauracie.sme.sk' in item:
             get_lunch_menu_sme(source, iter)
+        # if 'penzionplaza.sk' in item:
+        #     get_lunch_menu_pp(source, iter)
         iter += 1
 
 
     my_distance = gmaps.distance_matrix('Sturova 27 Kosice', 'Hlavna 4 Kosice', 'walking')
     print(my_distance['rows'][0]['elements'][0]['distance']['value'])
 
-    app.run(debug=True)
+    app.run(host= '192.168.25.128', debug=True)
